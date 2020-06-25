@@ -1,7 +1,7 @@
 <!SLIDE nofooter>
 # New talk, who dis?
 
-![profile](/_images/square.jpeg)
+![profile](/images/square.jpeg)
 
 * Ben Ford
 * Developer Advocate @ Puppet
