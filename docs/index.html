@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>Telemetry doesn't have to be scary</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
+
+  
+
+  <link rel="stylesheet" type="text/css" href="css/highlight/atelier-cave.light.css"  />
+  <link rel="stylesheet" type="text/css" href="css/mermaid-6.0.0.css" />
+  <link rel="stylesheet" type="text/css" href="css/font-awesome-5.6.1/css/all.min.css">
+  <link rel="stylesheet" type="text/css" href="css/introjs-2.5.local.css">
+  <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.12.1.css">
+  <link rel="stylesheet" type="text/css" href="css/showoff.css?v=0.20.2" />
+  <link rel="stylesheet" type="text/css" href="css/zoomline-0.0.1.css">
+
+  <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript" src="js/jquery-ui-1.12.1.js"></script>
+
+  <script type="text/javascript" src="js/jquery.cycle.all-2.8.0.js"></script>
+  <script type="text/javascript" src="js/jquery.batchImageLoad-1.0.0.js"></script>
+  <script type="text/javascript" src="js/jquery.parsequery.min-6a20f83.js"></script>
+  <script type="text/javascript" src="js/jquery.doubletap-4ff02c5.js"></script>
+  <script type="text/javascript" src="js/highlight.pack-9.15.10.js"></script>
+  <script type="text/javascript" src="js/highlightjs-line-numbers.min.js"></script>
+  <script type="text/javascript" src="js/jTypeWriter-1.1.js"></script>
+  <script type="text/javascript" src="js/bigtext-0.1.8.js"></script>
+  <script type="text/javascript" src="js/zoomline-0.0.1.js"></script>
+  <script type="text/javascript" src="js/simpleStrings-0.0.1.js"></script>
+  <script type="text/javascript" src="js/mermaid-6.0.0-min.js"></script>
+
+  <!-- waiting on https://github.com/usablica/intro.js/pull/727 -->
+  <script type="text/javascript" src="js/intro-2.5.local.js"></script>
+
+  <script type="text/javascript" src="js/coffee-script-1.1.3-pre.js"></script>
+
+  <script type="text/javascript" src="js/annotations.js?v=0.20.2"></script>
+  <script type="text/javascript" src="js/showoff.js?v=0.20.2"></script>
+
+  
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+  
+
+  
+
+  <script type="text/javascript">
+    $(function(){
+      setupPreso(false);
+    });
+
+    editUrl     = "";
+    interactive = false;
+    master      = false;
+    presenter   = false;
+
+    keymap               = {
+  "d": "DEBUG",
+  "space": "NEXT",
+  "down": "NEXT",
+  "right": "NEXT",
+  "pagedown": "NEXT",
+  "up": "PREV",
+  "left": "PREV",
+  "pageup": "PREV",
+  "SPACE": "NEXTSEC",
+  "DOWN": "NEXTSEC",
+  "RIGHT": "NEXTSEC",
+  "PAGEDOWN": "NEXTSEC",
+  "UP": "PREVSEC",
+  "LEFT": "PREVSEC",
+  "PAGEUP": "PREVSEC",
+  "R": "RELOAD",
+  "r": "REFRESH",
+  "c": "CONTENTS",
+  "t": "CONTENTS",
+  "h": "HELP",
+  "/": "HELP",
+  "?": "HELP",
+  "b": "BLANK",
+  ".": "BLANK",
+  "F": "FOOTER",
+  "f": "FOLLOW",
+  "n": "NOTES",
+  "esc": "CLEAR",
+  "p": "PAUSE",
+  "P": "PRESHOW",
+  "x": "EXECUTE",
+  "f5": "EXECUTE"
+};
+    keycode_dictionary   = {
+  "0": "\\",
+  "8": "backspace",
+  "9": "tab",
+  "12": "num",
+  "13": "enter",
+  "16": "shift",
+  "17": "ctrl",
+  "18": "alt",
+  "19": "pause",
+  "20": "caps",
+  "27": "esc",
+  "32": "space",
+  "33": "pageup",
+  "34": "pagedown",
+  "35": "end",
+  "36": "home",
+  "37": "left",
+  "38": "up",
+  "39": "right",
+  "40": "down",
+  "44": "print",
+  "45": "insert",
+  "46": "delete",
+  "48": "0",
+  "49": "1",
+  "50": "2",
+  "51": "3",
+  "52": "4",
+  "53": "5",
+  "54": "6",
+  "55": "7",
+  "56": "8",
+  "57": "9",
+  "59": ";",
+  "61": "=",
+  "65": "a",
+  "66": "b",
+  "67": "c",
+  "68": "d",
+  "69": "e",
+  "70": "f",
+  "71": "g",
+  "72": "h",
+  "73": "i",
+  "74": "j",
+  "75": "k",
+  "76": "l",
+  "77": "m",
+  "78": "n",
+  "79": "o",
+  "80": "p",
+  "81": "q",
+  "82": "r",
+  "83": "s",
+  "84": "t",
+  "85": "u",
+  "86": "v",
+  "87": "w",
+  "88": "x",
+  "89": "y",
+  "90": "z",
+  "91": "cmd",
+  "92": "cmd",
+  "93": "cmd",
+  "96": "num_0",
+  "97": "num_1",
+  "98": "num_2",
+  "99": "num_3",
+  "100": "num_4",
+  "101": "num_5",
+  "102": "num_6",
+  "103": "num_7",
+  "104": "num_8",
+  "105": "num_9",
+  "106": "num_multiply",
+  "107": "num_add",
+  "108": "num_enter",
+  "109": "num_subtract",
+  "110": "num_decimal",
+  "111": "num_divide",
+  "112": "f1",
+  "113": "f2",
+  "114": "f3",
+  "115": "f4",
+  "116": "f5",
+  "117": "f6",
+  "118": "f7",
+  "119": "f8",
+  "120": "f9",
+  "121": "f10",
+  "122": "f11",
+  "123": "f12",
+  "124": "print",
+  "144": "num",
+  "145": "scroll",
+  "173": "-",
+  "186": ";",
+  "187": "=",
+  "188": ",",
+  "189": "-",
+  "190": ".",
+  "191": "/",
+  "192": "`",
+  "219": "[",
+  "220": "\\",
+  "221": "]",
+  "222": "'",
+  "223": "`",
+  "224": "cmd",
+  "225": "alt",
+  "57392": "ctrl",
+  "63289": "num"
+};
+    keycode_shifted_keys = {
+  "0": ")",
+  "1": "!",
+  "2": "@",
+  "3": "#",
+  "4": "$",
+  "5": "%",
+  "6": "^",
+  "7": "&",
+  "8": "*",
+  "9": "(",
+  "/": "?",
+  ".": ">",
+  ",": "<",
+  "'": "\"",
+  ";": ":",
+  "[": "{",
+  "]": "}",
+  "\\": "|",
+  "`": "~",
+  "=": "+",
+  "-": "_",
+  "space": "SPACE",
+  "down": "DOWN",
+  "right": "RIGHT",
+  "pagedown": "PAGEDOWN",
+  "up": "UP",
+  "left": "LEFT",
+  "pageup": "PAGEUP"
+};
+    user_translations    = {
+};
+
+    I18n = new translation({"name":"Showoff Presentation","menu":{"title":"Showoff Menu","table_of_contents":"Table of Contents","downloads":"Downloads","feedback":{"label":"Send Feedback","description":"This slide is...","worst":"Terrible","best":"Awesome","why":"Why...?","send":"Send"},"pace":{"label":"The presenter should...","slower":"Slow Down","faster":"Speed Up"},"question":{"label":"Ask a Question","placeholder":"Ask a question..."},"edit":"Edit Current Slide","clear_annotations":"Clear Annotations","language":"Content Language","close":"Close","help":"Press <code>?</code> for help.","anonymous":"All features are anonymous.","sending":"Sending..."},"navigation":{"next":"Next","previous":"Previous","sync":"Sync Presentation"},"loading":"loading presentation...","pause_msg":"Presentation paused","activity_complete":"Activity complete","follow":{"label":"Follow Mode:"},"refresh":"Are you sure you want to refresh the slide content?\n\n(Use `RELOAD` to fully reload the entire UI)","reload":"Are you sure you want to reload Showoff?","preshow":{"prompt":"Minutes from now to start?","resume":"Resuming in:"},"tour":{"show":"See the Tour","reset":"Reset Hints","welcome":"<h3>Welcome to Showoff</h3>Let me show you around. After you finish this tour, it won't show again.","displayview":"Start by clicking this button to open the Display Window; then drag it onto the projector.","annotations":"Draw on your slides everywhere the presentation is displayed.","timer":"Set a countdown timer to help you stay on pace.","pace":"Audience members can use this to tell you if you're moving too quickly. Try to keep the indicator centered.","questions":"Questions asked by audience members are displayed here. You'll also see a count indicator on the Display Window when you have questions to answer.","notes":"Configure the notes display by zooming text, resizing the pane, or even popping it out into a new window.","slidesource":"The name of the slide is displayed here.","settings":"Would you like a different presenter layout? Choose that and other settings here.","edit":"This button will open your web-based editor--usually something like GitHub.","report":"Don't forget to report issues when you see them.","activity":{"count":"This will count down as audience members mark their activity complete. Their presentations will pause until completed.","complete":"Check this box when you're ready to move on. The presentation will pause while you're working."},"form":{"responses":"As questions are answered, they'll show up as a bar chart with the number of answers to each question on the right.","display":"Press this button to present a snapshot of the live responses on slide.","save":"Press this button to save your responses. The presentation will pause while answering."},"menu":{"start":"Click here to open the menu.","navigation":"Quickly navigate to any slide.","download":"Download presentation support files.","pace":"Provide pace feedback.","questions":"Ask live questions of the presenter.","feedback":"Provide suggestions for improving the content."}},"downloads":{"title":"File Downloads"},"help":{"title":"Help","next":"Move to the next slide.","prev":"Move to the previous slide.","nextsec":"Move to the next section.","prevsec":"Move to the previous section.","contents":"Show the table of contents menu.","follow":"Toggle follow mode.","help":"Show this help dialog.","refresh":"Refresh slide content.","reload":"Completely reload Showoff.","blank":"Blank the screen.","footer":"Toggle the display footer.","notes":"Toggle notes display.","clear":"Clear code execution results.","pause":"Pause the presentation.","preshow":"Display slideshow of <tt>preshow</tt> images on a timer.","execute":"Execute the first visible code block.","debug":"Show debugging information.","close":"Close"},"stats":{"title":"Viewing Statistics","stray":"of your audience is not viewing the same slide you are.","idle":"of your audience is idle.","current":"Slides currently being viewed","elapsed":"Elapsed time spent on each slide","nodata":"No data to display.","allcurrent":"All audience members are viewing the presenter's slide."},"forms":{"display":"Display Results","save":"Save"},"presenter":{"topbar":{"annotations":"Annotations","edit":"Edit Slide","report":"Report Issue With Slide","stats":"Viewing Statistics","downloads":"Downloads","display":"Display Window","print":"Print Slides","settings":"Settings","newpage":"Open in a new page...","tooltip":{"annotations":"Enable the annotations subsystem.","edit":"Edit current slide in new window.","report":"Report an issue with the current slide.","stats":"See the slides your audience is interacting with.","downloads":"Open the file downloads in a menu or new page.","display":"Enable the Display Window; you should put this on the projector.","print":"Print slides using a new window.","settings":"Open the Settings dialog."}},"preview":{"next":"Next","previous":"Previous"},"mobile":{"update":"Update"},"notes":{"label":"Showoff Notes","personal":"Personal Notes"},"timer":{"label":"Timer:","start":"Start","pause":"Pause","resume":"Resume","cancel":"Cancel","unit":"minutes"},"pace":{"faster":"Speed Up!","slower":"Slow Down!"},"questions":"Audience Questions","annotation":{"tools":"Tools","lines":"Lines","shapes":"Shapes"},"status":{"label":"Slides:"},"settings":{"label":"Settings","close":"Close","follower":{"label":"Update Follower","tooltip":"Send slide change notifications.","description":"When this is enabled, the Showoff server will track your slide changes. Disable it to observe the presentation without inadvertently causing slide changes."},"remote":{"label":"Enable Remote","tooltip":"Enables tracking of other presenters.","description":"When this is enabled, you can load the presenter in another browser (typically on your mobile phone) to control the presentation."},"layout":{"label":"Layout","default":"Default Layout","thumbs":"Display thumbnail previews of the next and previous slides.","beside":"Display the next slide as a large preview in the main presenter view.","floating":"Open the next slide as a floating window.","confirmation":"Browser security requires confirmation before opening a new window.","open":"Open Window","cancel":"cancel","reset":{"label":"Clear Showoff settings.","tooltip":"Reset Showoff UI settings to default values."}},"language":{"label":"Content Language","tooltip":"Select from available translations, or autoselect based on your browser settings.","description":"This presentation is available in different languages. Choose the language you would like to view or leave it at <tt>automatic</tt> to use your browser settings."}},"print":{"label":"Choose type of printed notes","description":"Select the content you'd like to show under the slides.","none":"Don't include notes","notes":"Presenter Notes","handouts":"Audience Handouts"}},"language":{"auto":"Automatic","disable":"Disable Translations"},"error":{"file_not_found":"File Not Found!"}});
+
+  </script>
+
+</head>
+
+<body>
+<div id="questionsIndicator"></div>
+
+<i id="hamburger" class="fa fa-bars fa-2x"></i>
+<div id="sidebarWrapper">
+    <div id="navigationHover"></div>
+    <div id="feedbackSidebar" class="sideMenu">
+    <img id="disconnected" src="css/disconnected.png">
+    <h3>Showoff Menu</h3>
+    <div id="navToggle" class="buttonWrapper"><i class=" fa fa-bookmark"></i> Table of Contents</div>
+    <div id="navigation" class="submenu"></div>
+    
+    <hr>
+
+    
+
+    
+
+    <div id="closeMenu" class="buttonWrapper"><i class="fa fa-close"></i> Close</div>
+    <hr>
+
+    <small>
+        <p>Press <code>?</code> for help.</p>
+        <p>All features are anonymous.</p>
+    </small>
+    </div>
+    <div id="sidebarExit"></div>
+</div>
+<div id="help-modal" title="Help">
+  <div id="help">
+    <div>
+      <span class="description">Move to the next slide.</span>
+      <span class="action">NEXT</span>
+      <span class="hotkeys"><span class="key">space</span><span class="key">down</span><span class="key">right</span><span class="key">pagedown</span></span>
+    </div>
+    <div>
+      <span class="description">Move to the previous slide.</span>
+      <span class="action">PREV</span>
+      <span class="hotkeys"><span class="key">up</span><span class="key">left</span><span class="key">pageup</span></span>
+    </div>
+    <div>
+      <span class="description">Move to the next section.</span>
+      <span class="action">NEXTSEC</span>
+      <span class="hotkeys"><span class="key">SPACE</span><span class="key">DOWN</span><span class="key">RIGHT</span><span class="key">PAGEDOWN</span></span>
+    </div>
+    <div>
+      <span class="description">Move to the previous section.</span>
+      <span class="action">PREVSEC</span>
+      <span class="hotkeys"><span class="key">UP</span><span class="key">LEFT</span><span class="key">PAGEUP</span></span>
+    </div>
+    <div>
+      <span class="description">Show the table of contents menu.</span>
+      <span class="action">CONTENTS</span>
+      <span class="hotkeys"><span class="key">c</span><span class="key">t</span></span>
+    </div>
+    <div>
+      <span class="description">Toggle follow mode.</span>
+      <span class="action">FOLLOW</span>
+      <span class="hotkeys"><span class="key">f</span></span>
+    </div>
+    <div>
+      <span class="description">Show this help dialog.</span>
+      <span class="action">HELP</span>
+      <span class="hotkeys"><span class="key">h</span><span class="key">/</span><span class="key">?</span></span>
+    </div>
+
+    <hr />
+
+    <div>
+      <span class="description">Refresh slide content.</span>
+      <span class="action">REFRESH</span>
+      <span class="hotkeys"><span class="key">r</span></span>
+    </div>
+    <div>
+      <span class="description">Completely reload Showoff.</span>
+      <span class="action">RELOAD</span>
+      <span class="hotkeys"><span class="key">R</span></span>
+    </div>
+    <div>
+      <span class="description">Blank the screen.</span>
+      <span class="action">BLANK</span>
+      <span class="hotkeys"><span class="key">b</span><span class="key">.</span></span>
+    </div>
+    <div>
+      <span class="description">Toggle the display footer.</span>
+      <span class="action">FOOTER</span>
+      <span class="hotkeys"><span class="key">F</span></span>
+    </div>
+    <div>
+      <span class="description">Toggle notes display.</span>
+      <span class="action">NOTES</span>
+      <span class="hotkeys"><span class="key">n</span></span>
+    </div>
+    <div>
+      <span class="description">Clear code execution results.</span>
+      <span class="action">CLEAR</span>
+      <span class="hotkeys"><span class="key">esc</span></span>
+    </div>
+    <div>
+      <span class="description">Pause the presentation.</span>
+      <span class="action">PAUSE</span>
+      <span class="hotkeys"><span class="key">p</span></span>
+    </div>
+    <div>
+      <span class="description">Display slideshow of <tt>preshow</tt> images on a timer.</span>
+      <span class="action">PRESHOW</span>
+      <span class="hotkeys"><span class="key">P</span></span>
+    </div>
+    <div>
+      <span class="description">Execute the first visible code block.</span>
+      <span class="action">EXECUTE</span>
+      <span class="hotkeys"><span class="key">x</span><span class="key">f5</span></span>
+    </div>
+
+    <hr />
+
+    <div>
+      <span class="description">Show debugging information.</span>
+      <span class="action">DEBUG</span>
+      <span class="hotkeys"><span class="key">d</span></span>
+    </div>
+  </div>
+</div>
+
+<div id="preso"><center>loading presentation...</center></div>
+<a id="synchronize"><i class="fa fa-link" aria-hidden="true" href="#"></i> Sync Presentation</a>
+<div id="notes"></div>
+
+<footer id="footer">
+  <span id="followLabel" class="container">Follow Mode: <i id="followMode" class="fa fa-ban" aria-hidden="true"></i></span>
+  <span id="slideInfo" class="container"></span>
+  <span id="debugInfo" class="container"></span>
+  <span id="notesInfo" class="container"></span>
+  <span id="slideFilename" class="container"></span>
+  <img id="disconnected" src="css/disconnected.png" />
+</footer>
+
+<div id="slides" class="offscreen" style="display:none;">
+<div data-section="Introduction" data-title="title" id="intro_title" class="slide cover rainbow" data-transition="none">
+<div class="content cover rainbow" ref="intro/title">
+<h1>Telemetry doesn't have to be scary</h1>
+
+<h3>Developer focused metrics that make sense.</h3>
+
+<p class="icons"><i class="fa fa-code-branch"></i> <i class="fa fa-database"></i> <i class="fa fa-sort-amount-down"></i></p>
+
+
+</div>
+<div class="notes-section notes">
+
+<ul>
+<li>Let's go ahead and get started today</li>
+<li>I'll be talking about telemetry, also known as <u>kryptonite</u> to many of us.</li>
+<li>But really it's how we know what to work on!</li>
+<li>so today, I want to talk about metrics focused on helping YOU.</li>
+</ul>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Introduction" data-title="intro" id="intro_intro" class="slide nofooter" data-transition="none">
+<div class="content nofooter" ref="intro/intro">
+<h1>New talk, who dis?</h1>
+
+<p><img src="./file//_images/square.jpeg" alt="profile"></p>
+
+<ul>
+<li>Ben Ford</li>
+<li>Developer Advocate @ Puppet</li>
+<li>@binford2k:
+<a href="https://www.twitter.com/binford2k" target="_blank"> <i class="fab fa-twitter"></i> </a>
+<a href="https://www.github.com/binford2k" target="_blank"> <i class="fab fa-github"></i> </a>
+<a href="https://puppetcommunity.slack.com/team/U11HA7VJ7" target="_blank"> <i class="fab fa-slack"></i> </a>
+</li>
+</ul>
+
+
+</div>
+<div class="notes-section notes">
+
+<ul>
+<li>Hi, I'm Ben, aka binford2k on the interwebs.</li>
+<li>I push the bits and talk to the peoples at Puppet and in our community.</li>
+<li>If you hang out in our Slack, you've probably seen me grouch that not knowing
+how people use Puppet holds us back from improvements.</li>
+<li>So in keeping with tradition, I'll be doing that again today</li>
+<li>But this time I hope to have a solution.</li>
+</ul>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Why we need metrics" data-title="section" id="why_section" style="background-image: url('file/_images/cockpit.png');" class="slide center subsection nofooter" data-transition="none">
+<div class="content center subsection nofooter" ref="why/section">
+<h1>Why we need metrics</h1>
+
+
+
+
+</div>
+<div class="notes-section handouts">
+
+<p class="callout copyright">Photo by <a href="https://unsplash.com/@benknight17" target="_blank">https://unsplash.com/@benknight17</a></p>
+
+</div>
+<div class="notes-section notes">
+
+<ul>
+<li>Because that's how you know how the tools are being used.</li>
+<li>And not knowing this information is like flying blind.</li>
+<li>Off into the great white unknown.</li>
+</ul>
+
+<p class="callout copyright">Photo by <a href="https://unsplash.com/@benknight17" target="_blank">https://unsplash.com/@benknight17</a></p>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Why we need metrics" data-title="module_build" id="why_module_build" class="slide center" data-transition="none">
+<div class="content center" ref="why/module_build">
+<p><img src="./file//_images/i-love-pdk_1.png" alt="I love the PDK"></p>
+
+<p class="callout lightbulb">It's not a huge task to design and build a simple, single-purpose,
+bespoke Puppet module in a short period of time.</p>
+
+
+</div>
+<div class="notes-section notes">
+
+<ul>
+<li>Let's start at the beginning.</li>
+<li>Identify a problem you want to solve.</li>
+<li>Create a module.</li>
+<li>Dev tools streamline the process.
+
+<ul>
+<li><code>pdk new module</code></li>
+<li><code>pdk new class</code></li>
+</ul>
+</li>
+<li>Write a little Puppet code.
+
+<ul>
+<li>VScode and Puppet plugin</li>
+</ul>
+</li>
+<li>Even get autogenerated testing and linting
+
+<ul>
+<li><code>pdk validate</code></li>
+<li><code>pdk test unit</code></li>
+</ul>
+</li>
+<li><em>So what's the problem?</em></li>
+</ul>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Why we need metrics" data-title="module_maintain" id="why_module_maintain" class="slide" data-transition="none">
+<div class="content " ref="why/module_maintain">
+<h1>Maintenance is a different story</h1>
+
+<p class="icons"><i class="fa fa-concierge-bell"></i></p>
+
+<ul>
+<li>Hey, can we add ArchLinux support?</li>
+<li>What about Windows 2012?</li>
+<li>Here's a PR for a defined type to manage the database too... <sup>(MariaDB only)</sup>
+</li>
+</ul>
+
+
+</div>
+<div class="notes-section notes">
+
+<ul>
+<li>It's really really easy to scope creep.</li>
+<li>Accepting a PR is trivial. Maintaining it may not be.</li>
+<li>Every added functionality you add is more complexity to maintain.</li>
+</ul>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Why we need metrics" data-title="module_resources" id="why_module_resources" class="slide" data-transition="none">
+<div class="content " ref="why/module_resources">
+<h1>Development resources</h1>
+
+<p class="icons"><i class="fa fa-hammer"></i> <i class="fa fa-dollar-sign"></i> <i class="fa fa-tools"></i></p>
+
+<p class="callout warning">Every single platform or feature you support takes time to maintain it!</p>
+
+
+</div>
+<div class="notes-section notes">
+
+<ul>
+<li>To make the most effective use of our time, we should focus on the most used code</li>
+<li>If people aren't using a class, then dedicating maintenance time to it is wasted</li>
+<li>Especially if that code adds complications
+
+<ul>
+<li>fragile testing</li>
+<li>more choices lead to complex user experience</li>
+<li>unneccesary abstractions make code harder to read</li>
+<li>I have an old Drupal module myself that includes sub-classes based on a
+complex case statement and string interpolation and why?</li>
+</ul>
+</li>
+<li>I remember reading an article once that explains how your business should "fire"
+customers that cost you more to keep than they actually generated.</li>
+<li>Likewise, sometimes we need to "fire" code that's not worth keeping.</li>
+<li>But how do we know? How do we make these decisions?</li>
+</ul>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Why we need metrics" data-title="data_driven_development" id="why_data_driven_development" class="slide" data-transition="none">
+<div class="content " ref="why/data_driven_development">
+<h1>Data driven development decisions</h1>
+
+<p><img src="./file//_images/roads.jpg" alt="two roads diverge"></p>
+
+<blockquote>
+<p>Two roads diverged in a wood, and I—<br>
+I took the one less traveled by,<br>
+And that has made all the difference.<br>
+-- Robert Frost</p>
+</blockquote>
+
+
+
+
+</div>
+<div class="notes-section handouts">
+
+<p class="callout copyright">Photo by <a href="https://unsplash.com/@leliejens" target="_blank">https://unsplash.com/@leliejens</a></p>
+
+</div>
+<div class="notes-section notes">
+
+<ul>
+<li>With all due respect to Robert Frost; as developers, we generally want to take the road <strong><em>MOST</em></strong> traveled!</li>
+<li>Just like seeing the wear patterns in these roads, knowing the usage patterns
+of our code is how we know what code to focus on.</li>
+<li>Or even what code to dump.</li>
+<li>Saas applications are used to easy access to profiling metrics because most
+platforms have endpoint tracing built in.</li>
+<li>Twitter <em>always</em> knows what parts of their platform are used most consistently.</li>
+<li>For on-prem software like Puppet modules though, we have to gather those patterns in other ways.</li>
+</ul>
+
+<p class="callout copyright">Photo by <a href="https://unsplash.com/@leliejens" target="_blank">https://unsplash.com/@leliejens</a></p>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Impact Analysis" data-title="section" id="impact_section" style="background-image: url('file/_images/impact.jpg');" class="slide center subsection nofooter" data-transition="none">
+<div class="content center subsection nofooter" ref="impact/section">
+<h1>Impact Analysis</h1>
+
+
+
+
+</div>
+<div class="notes-section handouts">
+
+<p class="callout copyright">Photo by <a href="https://unsplash.com/@the_roaming_platypus" target="_blank">https://unsplash.com/@the_roaming_platypus</a></p>
+
+</div>
+<div class="notes-section notes">
+
+<ul>
+<li>let's start out by talking about Impact Analysis</li>
+<li>this basically means identifying the effects of changes we make</li>
+<li>it's most effective when you can do that <em>before breaking things</em>!</li>
+</ul>
+
+<p class="callout copyright">Photo by <a href="https://unsplash.com/@the_roaming_platypus" target="_blank">https://unsplash.com/@the_roaming_platypus</a></p>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Impact Analysis" data-title="rangefinder" id="impact_rangefinder" class="slide" data-transition="none">
+<div class="content " ref="impact/rangefinder">
+<h1>Rangefinder</h1>
+
+<pre class="highlight"><code class="language-console">[~/Projects/puppetlabs-concat]$ rangefinder manifests/fragment.pp
+[concat::fragment] is a _type_
+==================================
+The enclosing module is declared in 173 of 575 indexed public Puppetfiles
+
+Breaking changes to this file WILL impact these modules:
+  * nightfly-ssh_keys (https://github.com/nightfly19/puppet-ssh_keys.git)
+  * viirya-mit_krb5 (git://github.com/viirya/puppet-mit_krb5.git)
+  * rjpearce-opendkim (https://github.com/rjpearce/puppet-opendkim)
+  * shadow-tor (git://github.com/LeShadow/puppet-tor.git)
+[...]
+
+Breaking changes to this file MAY impact these modules:
+  * empi89-quagga (UNKNOWN)
+  * unyonsys-keepalived (UNKNOWN)
+  * Flameeyes-udevnet (UNKNOWN)
+  * ricbra-ratbox (git://github.com/ricbra/puppet-ratbox.git)
+[...]</code></pre>
+
+<p class="callout lightbulb">Identify the public Forge modules using parts of your code.</p>
+
+
+
+
+</div>
+<div class="notes-section handouts">
+
+<p><a href="https://github.com/puppetlabs/puppet-community-rangefinder" target="_blank">https://github.com/puppetlabs/puppet-community-rangefinder</a></p>
+
+</div>
+<div class="notes-section notes">
+
+<ul>
+<li>Rangefinder is a tool I've been working on for a while.</li>
+<li>You just run it on a file and it figures out what that file defines and then tells you what Forge modules use it.</li>
+<li>In other words, if you break that file, who will be impacted?</li>
+<li>If you run it against a whole module, it iterates everything in the module.</li>
+</ul>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Impact Analysis" data-title="pull_request" id="impact_pull_request" class="slide" data-transition="none">
+<div class="content " ref="impact/pull_request">
+<h1>Run it on a pull request!</h1>
+
+<p><img src="./file//_images/rangefinder_github_app.png" alt="Rangefinder webhook"></p>
+
+<p class="callout thumbsup">Rangefinder also comes in a GitHub App flavor.</p>
+
+
+
+
+</div>
+<div class="notes-section handouts">
+
+<ul>
+<li><a href="https://github.com/apps/puppet-community-rangefinder" target="_blank">https://github.com/apps/puppet-community-rangefinder</a></li>
+</ul>
+
+</div>
+<div class="notes-section notes">
+
+<ul>
+<li><a href="https://github.com/apps/puppet-community-rangefinder" target="_blank">https://github.com/apps/puppet-community-rangefinder</a></li>
+</ul>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Impact Analysis" data-title="dependencies" id="impact_dependencies" class="slide" data-transition="none">
+<div class="content " ref="impact/dependencies">
+<h1>Static analysis of dependencies</h1>
+
+<p><img src="./file//_images/network.png" alt="network"></p>
+
+<ul>
+<li>Works by dissecting latest releases of all modules on the Forge</li>
+<li>Static code analysis identifies what every module uses
+
+<ul>
+<li>resource types</li>
+<li>functions</li>
+<li>classes</li>
+</ul>
+</li>
+<li>Runs weekly to generate dependency network</li>
+</ul>
+
+
+
+
+</div>
+<div class="notes-section handouts">
+
+<ul>
+<li>This uses my <em><code>itemize</code></em> library: <a href="https://github.com/binford2k/binford2k-itemize" target="_blank">https://github.com/binford2k/binford2k-itemize</a>
+</li>
+</ul>
+
+<p class="callout copyright">Photo by <a href="https://unsplash.com/@alinnnaaaa" target="_blank">https://unsplash.com/@alinnnaaaa</a></p>
+
+</div>
+<div class="notes-section notes">
+
+<ul>
+<li>This uses my <em><code>itemize</code></em> library: <a href="https://github.com/binford2k/binford2k-itemize" target="_blank">https://github.com/binford2k/binford2k-itemize</a>
+</li>
+</ul>
+
+<p class="callout copyright">Photo by <a href="https://unsplash.com/@alinnnaaaa" target="_blank">https://unsplash.com/@alinnnaaaa</a></p>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Impact Analysis" data-title="data" id="impact_data" class="slide" data-transition="none">
+<div class="content " ref="impact/data">
+<h1>Dependency data is public</h1>
+
+<p><img src="./file//_images/telemetry-bigquery.png" alt="BigQuery console"></p>
+
+<p class="callout lightbulb">The data Rangefinder uses is stored in a public BigQuery database.</p>
+
+
+
+
+</div>
+<div class="notes-section handouts">
+
+<p>Find more information about how it works and other cool queries you can run on
+the dataset powering it at my blog: <a href="https://binford2k.com/2020/04/06/rangefinder/" target="_blank">https://binford2k.com/2020/04/06/rangefinder/</a></p>
+
+</div>
+<div class="notes-section notes">
+
+<p>You'll find a lot more information about the tool and the dataset powering it
+at my blog, binford2k.com.</p>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Impact Analysis" data-title="limits" id="impact_limits" class="slide" data-transition="none">
+<div class="content " ref="impact/limits">
+<h1>Major limitation</h1>
+
+<p><img src="./file//_images/public_market.png" alt="Public market"></p>
+
+<ul>
+<li>Rangefinder only works on public Forge modules (currently).</li>
+<li>Cannot identify how code is used by profiles or private modules.</li>
+</ul>
+
+
+
+
+</div>
+<div class="notes-section handouts">
+
+<p class="callout copyright">Photo by <a href="https://unsplash.com/@sguestsmith" target="_blank">https://unsplash.com/@sguestsmith</a></p>
+
+</div>
+<div class="notes-section notes">
+
+<ul>
+<li>Right now, Rangefinder can only identify dependencies from public Forge modules.</li>
+<li>To truly know the spread and the impact of breaking changes we need production
+usage patterns from infrastructures actually <em>using</em> modules and components.</li>
+</ul>
+
+<p class="callout copyright">Photo by <a href="https://unsplash.com/@sguestsmith" target="_blank">https://unsplash.com/@sguestsmith</a></p>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Privacy Concerns" data-title="section" id="privacy_section" style="background-image: url('file/_images/lookout_tower.png');" class="slide center subsection rightfooter" data-transition="none">
+<div class="content center subsection rightfooter" ref="privacy/section">
+<h1>Privacy. It's a thing.</h1>
+
+
+
+
+</div>
+<div class="notes-section handouts">
+
+<p class="callout copyright">Photo by <a href="https://unsplash.com/@pawel_czerwinski" target="_blank">https://unsplash.com/@pawel_czerwinski</a></p>
+
+</div>
+<div class="notes-section notes">
+
+<ul>
+<li>But that immediately raises the privacy red flag.</li>
+<li>Any time a tool I use phones home, I immediately wonder what it's gathering.</li>
+<li>Whether it's sneaking information that I don't really want to share.</li>
+<li>I run Little Snitch, just like many of you, and I often even bust out Wireshark.</li>
+<li>So privacy and maintaining trust was the first thing on my mind.</li>
+</ul>
+
+<p class="callout copyright">Photo by <a href="https://unsplash.com/@pawel_czerwinski" target="_blank">https://unsplash.com/@pawel_czerwinski</a></p>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Privacy Concerns" data-title="bii" id="privacy_bii" class="slide" data-transition="none">
+<div class="content " ref="privacy/bii">
+<h1>Business Identifiable Information</h1>
+
+<p><img src="./file//_images/phone.png" alt="telephone"></p>
+
+<p class="callout warning">Sharing too much implementation information about how an
+infrastructure works is just asking for security compromises.</p>
+
+<ul>
+<li>Most of you know BII's big cousin, PII.</li>
+<li>But many of the same considerations apply to businesses.</li>
+<li>Many companies don't allow phone-home metrics at all.</li>
+</ul>
+
+
+</div>
+<div class="notes-section notes">
+
+<ul>
+<li>Do I really want people knowing the name of my primary LDAP server?</li>
+</ul>
+
+<p class="callout copyright">Photo by <a href="https://unsplash.com/@quinoal" target="_blank">https://unsplash.com/@quinoal</a></p>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Privacy Concerns" data-title="fingerprinting" id="privacy_fingerprinting" class="slide" data-transition="none">
+<div class="content " ref="privacy/fingerprinting">
+<h1>Fingerprinting</h1>
+
+<p><img src="./file//_images/fingerprint.png" alt="fingerprint"></p>
+
+<ul>
+<li>A more insidious danger is <u>fingerprinting</u>.</li>
+<li>Identifying individuals by properties or habits.</li>
+<li>Also applies to infrastructures.</li>
+</ul>
+
+<p class="callout fingerprint">If you saw that a site was in the <code>CEST</code> time zone, had
+the locale set to <code>fr-ch</code>, and had thousands of nodes classified with various
+HPC modules, then you might guess that you were looking at CERN.</p>
+
+
+</div>
+<div class="notes-section notes">
+
+<p>For example, if you saw that a site was:</p>
+
+<ul>
+<li>in the <code>CEST</code> time zone (central european summer time)</li>
+<li>had the locale set to <code>fr-ch</code> (swiss-french)</li>
+<li>had tens or hundreds of thousands of nodes classified with various HPC modules</li>
+</ul>
+
+<p>then you might surmise that you were looking at CERN and use the rest of that
+record as reconnaissance against them!</p>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Privacy Concerns" data-title="panopticlick" id="privacy_panopticlick" class="slide" data-transition="none">
+<div class="content " ref="privacy/panopticlick">
+<h1>Live example of fingerprinting</h1>
+
+<p><a href="https://panopticlick.eff.org/kcarter?aat=1" target="_blank"><img src="./file//_images/panopticlick.png" alt="Panopticlick"></a></p>
+
+
+</div>
+<div class="notes-section handouts">
+
+<p><a href="http://panopticlick.eff.org/" target="_blank">http://panopticlick.eff.org/</a></p>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Privacy Concerns" data-title="requirements" id="privacy_requirements" class="slide" data-transition="none">
+<div class="content " ref="privacy/requirements">
+<h1>Hard requirements</h1>
+
+<p class="icons"><i class="fa fa-tasks"></i></p>
+
+<ol>
+<li>Provide real value to the end user. <sup>(that's you)</sup>
+</li>
+<li>Transparent about what data is collected, why, and what it's used for.</li>
+<li>Give you the ability to opt in or out without gating other benefits.</li>
+<li>The data collected can be aggregated to <a href="https://console.cloud.google.com/bigquery?p=dataops-puppet-public-data" target="_blank">share publicly</a>.</li>
+</ol>
+
+
+</div>
+<div class="notes-section notes">
+
+<ul>
+<li>When I started designing the framework, I set out four invariant criteria.</li>
+<li>Much of it is to ensure that the <em>act of sharing metrics data</em> provides the user with value.</li>
+<li>In other words, I don't want to incentivize you to share metrics because sharing your metrics should provided you with value!</li>
+</ul>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Telemetry Model" data-title="section" id="model_section" style="background-image: url('file/_images/abacus.png');" class="slide center subsection" data-transition="none">
+<div class="content center subsection" ref="model/section">
+<h1>Telemetry Data Model</h1>
+
+
+
+
+</div>
+<div class="notes-section handouts">
+
+<p class="callout copyright">Photo by <a href="https://unsplash.com/@crissyjarvis" target="_blank">https://unsplash.com/@crissyjarvis</a></p>
+
+</div>
+<div class="notes-section notes">
+
+<ul>
+<li>So let's look at the data model.</li>
+<li>And show you how we are meeting those requirements.</li>
+</ul>
+
+<p class="callout copyright">Photo by <a href="https://unsplash.com/@crissyjarvis" target="_blank">https://unsplash.com/@crissyjarvis</a></p>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Telemetry Model" data-title="public" id="model_public" class="slide" data-transition="none">
+<div class="content " ref="model/public">
+<h1>Public dataset</h1>
+
+<h2>No access to <em>individual records</em> themselves</h2>
+
+<pre class="highlight"><code class="language-sql">-- The top ten most used classes in the ecosystem
+SELECT name, count
+FROM `dataops-puppet-public-data.aggregated.class_usage_count`
+ORDER BY count DESC
+LIMIT 10</code></pre>
+
+
+
+<pre class="highlight"><code class="language-json">[
+  { "name": "Resource_api::Agent", "count": "272" },
+  { "name": "Account",             "count": "272" },
+  { "name": "Ssl::Params",         "count": "272" },
+  { "name": "Classification",      "count": "272" },
+  { "name": "Os_patching",         "count": "269" },
+  { "name": "Ntp",                 "count": "265" },
+  { "name": "Ntp::Install",        "count": "265" },
+  { "name": "Ntp::Config",         "count": "265" },
+  { "name": "Ntp::Service",        "count": "265" },
+  { "name": "Zsh::Params",         "count": "265" }
+]</code></pre>
+
+
+
+
+</div>
+<div class="notes-section handouts">
+
+<p>You'll need a <a href="https://cloud.google.com" target="_blank">Google Cloud</a> account and then you can access the
+<a href="https://console.cloud.google.com/bigquery?p=dataops-puppet-public-data&amp;d=aggregated" target="_blank">dataset</a>
+with your browser via the BigQuery Console. Then you can run any queries you'd like.</p>
+
+</div>
+<div class="notes-section notes">
+
+<ul>
+<li>Let's start from the end here</li>
+<li>This is the data that you (or anyone else) has access to.</li>
+<li>All you need is a Google Cloud account.</li>
+<li>This query shows the ten most used classes currently in the dataset.</li>
+<li>Note that you cannot see any actual records themselves, so you cannot see
+the complete set of classes that any site is using.</li>
+<li>All you see is a lot of pre-computed sums, counts, and other data aggregations.</li>
+<li>The actual data is currently super limited right now -- only alpha/beta testers have reported in.</li>
+</ul>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Telemetry Model" data-title="aggregate" id="model_aggregate" class="slide" data-transition="none">
+<div class="content " ref="model/aggregate">
+<h1>Aggregating data</h1>
+
+<p>Data is generated via SQL queries:</p>
+
+<pre class="highlight"><code class="language-sql">-- Generate an aggregate table of all classes used and their counts.
+SELECT classes.name, classes.count
+FROM `bto-dataops-datalake-prod.dujour.community_metrics`,
+    UNNEST(classes) as classes
+GROUP BY classes.name, classes.count</code></pre>
+
+<p><img src="./file//_images/aggregation.png" alt="aggregation"></p>
+
+
+
+
+</div>
+<div class="notes-section handouts">
+
+<p><a href="https://github.com/puppetlabs/dropsonde-aggregation" target="_blank">https://github.com/puppetlabs/dropsonde-aggregation</a></p>
+
+</div>
+<div class="notes-section notes">
+
+<ul>
+<li>Each week, a bunch of little SQL queries run to generate that data.</li>
+<li>They take the real data and strip anything identifiable.</li>
+<li>Count, sum, etc. and generate metrics ready to be used.</li>
+<li>Every query generates a table.</li>
+<li>There are not a lot yet, but we'll be adding them as we learn useful ways to dissect the data.</li>
+<li>In case you've been admiring the wonderful imagery in this deck up until now, yes, this
+OmniGraffle thing is how sophisticated my own images are.</li>
+</ul>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Telemetry Model" data-title="sensitive" id="model_sensitive" class="slide" data-transition="none">
+<div class="content " ref="model/sensitive">
+<h1>Private dataset</h1>
+
+<h2>So about that sensitive data...</h2>
+
+<p><img src="./file//_images/no_tresspassing.png" alt="No trespassing"></p>
+
+<ul>
+<li>Telemetry reports are not terribly sensitive, but they are fingerprintable.</li>
+<li>So we store them only in a secured dataset.</li>
+<li>Limited access, only myself and our BigQuery admin team.</li>
+</ul>
+
+<p class="callout info">Our own developers who want to use collected metrics data
+have to do it via aggregation queries just like you would.</p>
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Plugin Design" data-title="section" id="design_section" style="background-image: url('file/_images/legos.png');" class="slide center subsection" data-transition="none">
+<div class="content center subsection" ref="design/section">
+<h1>Metric Plugin Design</h1>
+
+
+
+
+</div>
+<div class="notes-section handouts">
+
+<p class="callout copyright">Photo by <a href="https://unsplash.com/@danielkcheung" target="_blank">https://unsplash.com/@danielkcheung</a></p>
+
+</div>
+<div class="notes-section notes">
+
+<ul>
+<li>Now we'll talk about how the telemetry framework itself protects your privacy.</li>
+<li>Metrics are each designed as self-contained plugins.</li>
+<li>And every time they run, they're validated for consistency.</li>
+</ul>
+
+<p class="callout copyright">Photo by <a href="https://unsplash.com/@danielkcheung" target="_blank">https://unsplash.com/@danielkcheung</a></p>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Plugin Design" data-title="hooks" id="design_hooks" class="slide" data-transition="none">
+<div class="content " ref="design/hooks">
+<h1>Plugin hook design</h1>
+
+<ul>
+<li>Plugins are implemented as hooks.
+
+<ul>
+<li><code>description</code></li>
+<li><code>schema</code></li>
+<li><code>example</code></li>
+<li><code>run</code></li>
+</ul>
+</li>
+<li>Some hooks are optional
+
+<ul>
+<li><code>initialize</code></li>
+<li><code>setup</code></li>
+<li><code>cleanup</code></li>
+</ul>
+</li>
+</ul>
+
+
+</div>
+<div class="notes-section notes">
+
+<ul>
+<li>description describes what the plugin does</li>
+<li>schema describes the data that the plugin returns</li>
+<li>example provides a representative example of what the metric data could look like.</li>
+<li>run actually evaluates the metric and returns real data</li>
+<li>the optional hooks, initialize/setup/cleanup, just provide ways to separate out the code into cleaner stages</li>
+</ul>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Plugin Design" data-title="schema" id="design_schema" class="slide" data-transition="none">
+<div class="content " ref="design/schema">
+<h1>Schema hook</h1>
+
+<h2>Describes data that the plugin is allowed to return.</h2>
+
+<ul>
+<li>Returns a BigQuery schema.</li>
+<li>JSON format with an array of row definitions</li>
+</ul>
+
+
+
+<pre class="highlight"><code class="language-ruby">def self.schema
+  [
+    {
+      "description": "The number of environments",
+      "mode": "NULLABLE",
+      "name": "environment_count",
+      "type": "INTEGER"
+    }
+  ]
+end</code></pre>
+
+<p class="callout info">See full schema of all plugins with <code>dropsonde dev schema</code></p>
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Plugin Design" data-title="run" id="design_run" class="slide" data-transition="none">
+<div class="content " ref="design/run">
+<h1>Run hook</h1>
+
+<h2>Generates and returns data for the metric</h2>
+
+<ul>
+<li>Returns an array of rows of data.</li>
+<li>Can return any data that the Puppet Server node can generate.</li>
+<li>Use PuppetDB, codebase, etc.</li>
+<li>Must match schema or plugin fails.</li>
+</ul>
+
+
+
+<pre class="highlight"><code class="language-ruby">def self.run
+  [
+    :environment_count =&gt; Puppet.lookup(:environments).list.count,
+  ]
+end</code></pre>
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Plugin Design" data-title="example" id="design_example" class="slide" data-transition="none">
+<div class="content " ref="design/example">
+<h1>Example hook</h1>
+
+<h2>Representative example of sample data</h2>
+
+<ul>
+<li>Provide one element of randomized representative data.</li>
+<li>Used to generate a dataset that's shaped like the real dataset.</li>
+<li>Must match the <code>schema</code> or plugin fails.</li>
+<li>Used for developers to generate aggregation queries.</li>
+</ul>
+
+
+
+<pre class="highlight"><code class="language-ruby">def self.example
+  [
+    :environment_count =&gt; rand(1..100),
+  ]
+end</code></pre>
+
+
+
+
+</div>
+<div class="notes-section handouts">
+
+<ul>
+<li>Available as <code>dataops-puppet-public-data:community.community_metrics</code>
+</li>
+</ul>
+
+</div>
+<div class="notes-section notes">
+
+<ul>
+<li>Available as <code>dataops-puppet-public-data:community.community_metrics</code>
+</li>
+</ul>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Plugin Design" data-title="preview" id="design_preview" class="slide" data-transition="none">
+<div class="content " ref="design/preview">
+<h1>Previewing a telemetry report</h1>
+
+<pre class="highlight"><code class="language-shell">$ dropsonde --enable environments preview
+
+                      Puppet Telemetry Report Preview
+                      ===============================
+
+Dropsonde::Metrics::Environments
+-------------------------------
+This group of metrics gathers information about environments.
+- environment_count: The number of environments
+    4
+
+
+Site ID:
+bab5a61cb7af7d37fa65cb1ad97b2495b4bdbc85bac7b4f9ca6932c8cd9038dd7e87be13abb367e124bfdda2de14949f8b3e8658931e39f58bcef23382d8f426</code></pre>
+
+<ul>
+<li>Before you submit data, you can see what's generated</li>
+<li>This example selects only a single metric</li>
+<li>Site ID is a cryptographic hash that just correlates reports
+
+<ul>
+<li>Can be regenerated by providing a <code>seed</code> value</li>
+</ul>
+</li>
+</ul>
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Plugin Design" data-title="validation" id="design_validation" class="slide" data-transition="none">
+<div class="content " ref="design/validation">
+<h1>Data validation</h1>
+
+<p><img src="./file//_images/halt.png" alt="halt!"></p>
+
+<ul>
+<li>The plugin cannot return data that it does not declare.</li>
+<li>The database schema is also defined from the plugin schemas.</li>
+</ul>
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Using Data" data-title="section" id="using_section" style="background-image: url('file/_images/coffee.png');" class="slide center subsection" data-transition="none">
+<div class="content center subsection" ref="using/section">
+<h1>Using the Data</h1>
+
+
+
+
+</div>
+<div class="notes-section handouts">
+
+<p class="callout copyright">Photo by <a href="https://unsplash.com/@sonson" target="_blank">https://unsplash.com/@sonson</a></p>
+
+</div>
+<div class="notes-section notes">
+
+<p class="callout copyright">Photo by <a href="https://unsplash.com/@sonson" target="_blank">https://unsplash.com/@sonson</a></p>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Using Data" data-title="dataset" id="using_dataset" class="slide" data-transition="none">
+<div class="content " ref="using/dataset">
+<h1>Public data</h1>
+
+<p><img src="./file//_images/dataset.png" alt="dataset screenshot"></p>
+
+<ul>
+<li>All you need is a Google Cloud account.</li>
+<li>Then you can explore the datasets.</li>
+</ul>
+
+
+</div>
+<div class="notes-section handouts">
+
+<p>Once you have an account, browse to <a href="https://console.cloud.google.com/bigquery?p=dataops-puppet-public-data&amp;d=aggregated" target="_blank">https://console.cloud.google.com/bigquery?p=dataops-puppet-public-data&amp;d=aggregated</a>
+to check out the <code>dataops-puppet-public-data</code> project.</p>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Using Data" data-title="example" id="using_example" class="slide" data-transition="none">
+<div class="content " ref="using/example">
+<h1>Interesting queries</h1>
+
+<ul>
+<li>Dataset includes:
+
+<ul>
+<li>Forge module metadata</li>
+<li>Static analysis of Forge modules</li>
+<li>GitHub repositories that look like Puppet modules</li>
+<li>Aggregated telemetry data</li>
+</ul>
+</li>
+<li>Combine them as you will.</li>
+</ul>
+
+<p>Example: a list of the modules on the Forge that define custom native types:</p>
+
+<pre class="highlight"><code class="language-sql">SELECT DISTINCT g.repo_name, f.slug
+FROM `dataops-puppet-public-data.community.github_ruby_files` g
+JOIN `dataops-puppet-public-data.community.forge_modules` f
+    ON g.repo_name = REGEXP_EXTRACT(f.source, r'^(?:https?:\/\/github.com\/)?(.*?)(?:.git)?$')
+WHERE STARTS_WITH(g.path, 'lib/puppet/type')
+LIMIT 1000</code></pre>
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Using Data" data-title="tba" id="using_tba" class="slide" data-transition="none">
+<div class="content " ref="using/tba">
+<h1>So what else is possible?</h1>
+
+<h2>Who knows, really.</h2>
+
+<ul>
+<li>Maybe we can incorporate Impact Analysis into PDK validations.</li>
+<li>Maybe the Forge will start surfacing some of these metrics. <sup>(hint: it will)</sup>
+</li>
+<li>Maybe Vox Pupuli will incorporate usage data into their Tasks management interface.</li>
+<li>Maybe <em>you</em> will write something I haven't even thought of.</li>
+</ul>
+
+<p><img src="./file//_images/vp_tasks.png" alt="Vox Pupuli Tasks interface"></p>
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Conclusion" data-title="section" id="conclusion_section" style="background-image: url('file/_images/stack.jpg');" class="slide center subsection" data-transition="none">
+<div class="content center subsection" ref="conclusion/section">
+<h1><strong>Get Involved!</strong></h1>
+
+
+
+
+</div>
+<div class="notes-section handouts">
+
+<p class="callout copyright">Photo by <a href="https://unsplash.com/@lunarts" target="_blank">https://unsplash.com/@lunarts</a></p>
+
+</div>
+<div class="notes-section notes">
+
+<ul>
+<li>Like any good Community project, this doesn't actually go anywhere until I get you all convinced.</li>
+<li>And honestly, it totally depends on at least some of you getting interested.</li>
+</ul>
+
+<p class="callout copyright">Photo by <a href="https://unsplash.com/@lunarts" target="_blank">https://unsplash.com/@lunarts</a></p>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Conclusion" data-title="cta" id="conclusion_cta" class="slide" data-transition="none">
+<div class="content " ref="conclusion/cta">
+<h1>What I'm asking from you</h1>
+
+<ul>
+<li>This is totally opt-in only right now.</li>
+<li><code>puppet module install puppetlabs/dropsonde</code></li>
+<li>Check out the example dataset and contribute some aggregation queries.</li>
+<li>Develop and contribute a metric plugin.</li>
+<li>Doesn't have to be strictly Puppet, just ecosystem:
+
+<ul>
+<li>Reid already made a plugin to see the impact of building a better control repo and <code>Puppetfile</code> for better r10k deploys.</li>
+<li>David could see how many people are using the Rocket.chat integration for <code>voxpupuli/puppet-webhook</code>.</li>
+</ul>
+</li>
+<li><code>puppet module install puppetlabs/dropsonde</code></li>
+<li>Build some tooling that uses the public data.</li>
+</ul>
+
+<p class="callout info">Seriously, install the module and classify your master. It would help a ton.</p>
+
+
+
+
+</div>
+<div class="notes-section handouts">
+
+<p class="callout book"><code>Dropsonde</code>: an expendable weather reconnaissance device created by the
+National Center for Atmospheric Research, designed to be dropped from an aircraft
+at altitude over water to measure storm conditions as the device falls to the surface.</p>
+
+<p class="callout info">Installing Dropsonde is super straightforward. Install the <code>puppetlabs-dropsonde</code>
+Puppet module and classify your Puppet master with the <code>dropsonde</code> class. If you
+have multiple compile nodes, just classify the primary Puppet server. This will
+install the tool and configure a weekly cron job to submit the reports.</p>
+
+</div>
+<div class="notes-section notes">
+
+<p class="callout book"><code>Dropsonde</code>: an expendable weather reconnaissance device created by the
+National Center for Atmospheric Research, designed to be dropped from an aircraft
+at altitude over water to measure storm conditions as the device falls to the surface.</p>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Conclusion" data-title="finit" id="conclusion_finit" style="background-image: url('file/_images/end.jpg');" class="slide nofooter" data-transition="none">
+<div class="content nofooter" ref="conclusion/finit">
+
+
+
+</div>
+<div class="notes-section handouts">
+
+<p class="callout copyright">Photo by <a href="https://unsplash.com/@mattbotsford" target="_blank">https://unsplash.com/@mattbotsford</a></p>
+
+</div>
+<div class="notes-section notes">
+
+<p class="callout copyright">Photo by <a href="https://unsplash.com/@mattbotsford" target="_blank">https://unsplash.com/@mattbotsford</a></p>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="Conclusion" data-title="resources" id="conclusion_resources" class="slide" data-transition="none">
+<div class="content " ref="conclusion/resources">
+<h1>Resources and Q&amp;A</h1>
+
+<p class="icons"><i class="fa fa-question-circle"></i></p>
+
+<ul>
+<li><a href="https://github.com/puppetlabs/dropsonde" target="_blank">https://github.com/puppetlabs/dropsonde</a></li>
+<li><a href="https://github.com/puppetlabs/puppet-community-rangefinder" target="_blank">https://github.com/puppetlabs/puppet-community-rangefinder</a></li>
+<li><a href="https://github.com/apps/puppet-community-rangefinder" target="_blank">https://github.com/apps/puppet-community-rangefinder</a></li>
+<li><a href="https://binford2k.com/tags/#telemetry-ref" target="_blank">https://binford2k.com/tags/#telemetry-ref</a></li>
+</ul>
+
+
+
+
+</div>
+<div class="notes-section handouts">
+
+<ul>
+<li><a href="https://github.com/puppetlabs/dropsonde" target="_blank">https://github.com/puppetlabs/dropsonde</a></li>
+<li><a href="https://github.com/puppetlabs/puppetlabs-dropsonde" target="_blank">https://github.com/puppetlabs/puppetlabs-dropsonde</a></li>
+<li><a href="https://github.com/puppetlabs/dropsonde-aggregation" target="_blank">https://github.com/puppetlabs/dropsonde-aggregation</a></li>
+<li>
+<a href="https://binford2k.com/tags/#telemetry-ref" target="_blank">https://binford2k.com/tags/#telemetry-ref</a>
+
+<ul>
+<li><a href="https://binford2k.com/2020/04/06/rangefinder/" target="_blank">Impact Analysis of Puppet Modules</a></li>
+<li><a href="https://binford2k.com/2020/04/30/downstream-impact-of-pull-requests/" target="_blank">Downstream impact of pull requests</a></li>
+<li><a href="https://binford2k.com/2020/05/15/telemetry-that-doesnt-suck/" target="_blank">Telemetry that doesn't suck</a></li>
+<li><a href="https://binford2k.com/2020/06/10/writing-a-new-metrics-plugin/" target="_blank">Gathering metrics with a new Dropsonde plugin</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+<div class="notes-section notes">
+
+<ul>
+<li>While we're doing questions.</li>
+<li>You can find the tools I'm talking about at these repositories</li>
+<li>And I've been writing about the framework on my blog</li>
+</ul>
+
+</div>
+<canvas class="annotations"></canvas>
+</div>
+</div>
+<div id="buttonNav">
+  <div id="buttonPrev"><i class="fa fa-chevron-left fa-lg"></i> Previous</div><div id="buttonNext">Next <i class="fa fa-chevron-right fa-lg"></i></div>
+</div>
+<div id="pauseScreen">
+  PAUSED
+</div>
+
+  <script defer type="text/javascript">
+    // We want the audience members to see automatic tours. We can assume that they won't be
+    // using many server domains like the presenter might.
+    var autoTour = true;
+
+    $( document ).ready(function() {
+      if(presenter && !window.opener) {
+        alert('This is an audience view designed for interactivity. If you are placing this window on a projector, you should use the Display View instead.');
+      }
+
+      tours['showoff:activity'] = [
+        {
+          element: ".currentSlide .activityToggle",
+          intro: I18n.t('tour.activity.complete')
+        }
+      ];
+
+      tours['showoff:form'] = [
+        {
+          element: ".currentSlide input.save",
+          intro: I18n.t('tour.form.save')
+        }
+      ];
+
+      tours['showoff:menu'] = [
+        {
+          element: "#hamburger",
+          intro: I18n.t('tour.menu.start')
+        },
+        {
+          element: "#navToggle",
+          intro: I18n.t('tour.menu.navigation')
+        },
+        {
+          element: "#fileDownloads",
+          intro: I18n.t('tour.menu.download')
+        },
+        {
+          element: "#paceFaster",
+          intro: I18n.t('tour.menu.pace')
+        },
+        {
+          element: "#questionToggle",
+          intro: I18n.t('tour.menu.questions')
+        },
+        {
+          element: "#feedbackToggle",
+          intro: I18n.t('tour.menu.feedback')
+        }
+      ].filter(function(item) { return (document.querySelector(item['element'])) });
+      // display tips for only the enabled features
+    });
+  </script>
+
+</body>
+</html>
