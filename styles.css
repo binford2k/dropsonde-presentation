@@ -1,0 +1,215 @@
+.content .icons {
+  font-size: 6em;
+  text-align: center;
+}
+
+.callout:before {
+  color: #ffad1a;
+}
+
+.callout.cheers,
+.callout.heart,
+.callout.lightbulb,
+.callout.meh,
+.callout.grin,
+.callout.copyright,
+.callout.fingerprint,
+.callout.book {
+  padding-left: 3.5em;
+}
+
+.callout.cheers:before {
+  content: "\f79f";
+}
+.callout.heart:before {
+  content: "\f004";
+}
+.callout.lightbulb:before {
+  content: "\f0eb";
+}
+.callout.meh:before {
+  content: "\f11a";
+}
+.callout.grin:before {
+  content: "\f58a";
+}
+.callout.copyright:before {
+  content: "\f1f9";
+}
+.callout.fingerprint:before {
+  content: "\f577";
+}
+.callout.book:before {
+  content: "\f02d";
+}
+
+
+a {
+  text-decoration: none;
+}
+
+.slide.currentSlide:after {
+  font-family: "Font Awesome 5 Brands";
+  content: "@binford2k: \f099  \f09b  \f198";
+  position: absolute;
+  bottom: 1px;
+  left: 3px;
+}
+.slide.currentSlide.rightfooter:after {
+  left: auto;
+  right: 3px;
+}
+
+.slide.currentSlide.nofooter:after {
+  content: none;
+}
+
+/* Allow us to specify when we want code to wrap */
+.content pre.code_wrap:not(.highlight),
+.content pre.highlight code.code_wrap  {
+    white-space: pre-wrap; /* css-3 */S
+    white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+
+.content .float_left  {
+  float: left;
+  margin-right: 1em;
+}
+.content .float_right {
+  float: right;
+  margin-left: 1em;
+}
+
+.content.sidebar > ul {
+  margin-left: 250px;
+}
+
+.content.invert {
+  color: white;
+}
+
+h1:first-child {
+  border-bottom: none;
+}
+.content:not(.cover) h1:not(.section_title) {
+  border-bottom: none;
+}
+
+
+
+.content.highlight h1,
+.content.highlight h2,
+.content.invert h1,
+.content.invert h2 {
+  font-weight: 900;
+  background-color: #ffad1a;
+  margin: -1px;
+  line-height: 2em;
+  border: none !important;
+}
+
+.callout.fixed {
+  border-color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 16em;
+  width: 85%;
+}
+
+
+@keyframes rotate {
+	100% {
+		transform: rotate(1turn);
+	}
+}
+
+
+.content.rainbow {
+  text-align: center;
+	border-radius: 10px;
+	overflow: hidden;
+	padding: 8rem 2rem 0;
+	margin: 0.5rem 1rem;
+	background-color: #fff;
+	height: calc(100% - 11rem);
+}
+
+.slide.rainbow::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  z-index: -1;
+  background: conic-gradient(red, yellow, lime, aqua, blue, magenta, red);
+  animation: rotate 15s linear infinite;
+}
+
+body {
+  background-color: #d7d7d7;
+}
+
+.content blockquote {
+  margin: 2em 3em;
+  padding-left: 2.5em;
+  border-left: 4px solid #ccc;
+  border-radius: 0.25em;
+  background-color: #f7f7f7;
+}
+
+.content blockquote p:first-child:before,
+.content blockquote p:last-child:after {
+  font-family: "Font Awesome 5 Free";
+}
+
+.content blockquote p:first-child:before {
+  float: left;
+  content: "\f10d";
+  margin-left: -2em;
+}
+.content blockquote p:last-child:after {
+  float: right;
+  content: "\f10e";
+}
+
+
+
+@media print {
+   #preso, .slide {
+    overflow: hidden;
+  }
+
+   #preso, .slide:not(.cover) {
+    max-height: inherit !important;
+    height: 100% !important; /* because otherwise handout notes are cutoff by the inline height set on the slide */
+    overflow: hidden;
+  }
+  .slide .center:not(.cover),
+  #slides.supplemental .slide .center {
+    position: static;
+    /* for some reason, setting top to 50% is pushing the content too far down, no idea why */
+    top: inherit;
+    -webkit-transform: none;
+    -ms-transform: none;
+    transform: none;
+  }
+
+  .slide.center.cover,
+  .slide.center.fullscreen {
+    height: 800px !important;
+  }
+  .slide .center.cover + .notes-section,
+  .slide .center.fullscreen + .notes-section {
+    position: relative;
+    top: 300px;
+  }
+  .slide .center.fullscreen + .notes-section {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+}

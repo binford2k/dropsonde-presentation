@@ -1,0 +1,74 @@
+{
+  "name": "Telemetry doesn't have to be scary",
+  "description": "Developer focused metrics that make sense.",
+  "protected": [
+    "presenter",
+    "onepage",
+    "print"
+  ],
+  "user": "binford2k",
+  "password": "supersekrit",
+  "version": "0.12.0",
+  "feedback": true,
+  "issues": "https://github.com/binford2k/dropsonde_preso/issues/new?title=",
+  "highlight": "atelier-cave.light",
+  "parsers" : {
+    "shell": "cat"
+  },
+  "sections": {
+    "Introduction":  [
+      "intro/title.md",
+      "intro/toc.md",
+      "intro/intro.md"
+    ],
+    "Why we need metrics":  [
+      "why/section.md",
+      "why/module_build.md",
+      "why/module_maintain.md",
+      "why/module_resources.md",
+      "why/data_driven_development.md"
+    ],
+    "Impact Analysis":  [
+      "impact/section.md",
+      "impact/rangefinder.md",
+      "impact/pull_request.md",
+      "impact/dependencies.md",
+      "impact/data.md",
+      "impact/limits.md"
+    ],
+    "Privacy Concerns":  [
+      "privacy/section.md",
+      "privacy/bii.md",
+      "privacy/fingerprinting.md",
+      "privacy/panopticlick.md",
+      "privacy/requirements.md"
+    ],
+    "Telemetry Model":  [
+      "model/section.md",
+      "model/public.md",
+      "model/aggregate.md",
+      "model/sensitive.md"
+    ],
+    "Plugin Design":  [
+      "design/section.md",
+      "design/hooks.md",
+      "design/schema.md",
+      "design/run.md",
+      "design/example.md",
+      "design/preview.md",
+      "design/validation.md"
+    ],
+    "Using Data":  [
+      "using/section.md",
+      "using/dataset.md",
+      "using/example.md",
+      "using/tba.md"
+    ],
+    "Conclusion":  [
+      "conclusion/section.md",
+      "conclusion/cta.md",
+      "conclusion/finit.md",
+      "conclusion/resources.md"
+    ]
+  }
+}
