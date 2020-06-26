@@ -5,6 +5,7 @@
 * Returns an array of rows of data.
 * Can return any data that the Puppet Server node can generate.
 * Use PuppetDB, codebase, etc.
+* Methods provided to filter out private modules.
 * Must match schema or plugin fails.
 
 .break
