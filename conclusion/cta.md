@@ -11,7 +11,7 @@
 * `puppet module install puppetlabs/dropsonde`
 * Build some tooling that uses the public data.
 
-.callout.info Seriously, install the module and classify your master. It would help a ton.
+.callout.info Seriously, install the module and classify your primary Puppet server. It would help a ton.
 
 ~~~SECTION:notes~~~
 
