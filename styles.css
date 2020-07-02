@@ -179,15 +179,26 @@ body {
 
 
 @media print {
-   #preso, .slide {
-    overflow: hidden;
+  body {
+    background-color: #fff;
   }
 
-   #preso, .slide:not(.cover) {
-    max-height: inherit !important;
-    height: 100% !important; /* because otherwise handout notes are cutoff by the inline height set on the slide */
+   #preso, .slide {
     overflow: hidden;
+    background-size: cover;
   }
+
+  .subsection .callout {
+    background-color: rgba(255, 255, 255, 0.42);
+  }
+  .subsection .notes-section.handouts {
+    display: none;
+  }
+
+  .content {
+    min-height: 500px;
+  }
+
   .slide .center:not(.cover),
   #slides.supplemental .slide .center {
     position: static;

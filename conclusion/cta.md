@@ -28,7 +28,7 @@ National Center for Atmospheric Research, designed to be dropped from an aircraf
 at altitude over water to measure storm conditions as the device falls to the surface.
 
 .callout.info Installing Dropsonde is super straightforward. Install the `puppetlabs-dropsonde`
-Puppet module and classify your Puppet master with the `dropsonde` class. If you
+Puppet module and classify your Puppet server with the `dropsonde` class. If you
 have multiple compile nodes, just classify the primary Puppet server. This will
 install the tool and configure a weekly cron job to submit the reports.
 
